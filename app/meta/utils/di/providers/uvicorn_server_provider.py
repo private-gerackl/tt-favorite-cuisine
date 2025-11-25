@@ -4,7 +4,6 @@ from uvicorn import Config, Server
 
 
 class UvicornServerProvider(Provider):
-
     @provide(scope=Scope.APP)
     def get_server_config(
         self,

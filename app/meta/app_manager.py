@@ -5,7 +5,6 @@ from uvicorn import Server
 
 
 class AppManager:
-
     def __init__(
         self,
         app_container: AsyncContainer,

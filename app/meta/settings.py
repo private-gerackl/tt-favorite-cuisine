@@ -11,4 +11,4 @@ class AppSettings(
 class EnvSettings(
     BaseSettings,
 ):
-    app_version: str = '0.0.0'
+    app_version: str = "0.0.0"

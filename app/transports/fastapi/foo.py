@@ -6,7 +6,8 @@ from app.meta.settings import EnvSettings
 
 router = APIRouter(route_class=DishkaRoute)
 
-@router.get('/')
+
+@router.get("/")
 async def bar(
     env_settings: FromDishka[EnvSettings],
 ) -> EnvSettings:

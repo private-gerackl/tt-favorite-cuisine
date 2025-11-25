@@ -4,15 +4,12 @@ from app.transports.fastapi.foo import router
 
 
 class FastAPIFactory:
-
     def __init__(
         self,
     ):
         self._app = FastAPI()
 
-    def build(
-        self
-    ) -> FastAPI:
+    def build(self) -> FastAPI:
         app = FastAPI()
         self._include_routers(app)
         return app

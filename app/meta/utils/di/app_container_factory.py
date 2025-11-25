@@ -7,7 +7,6 @@ from app.meta.utils.di.providers.uvicorn_server_provider import UvicornServerPro
 
 
 class AppContainerFactory:
-
     @classmethod
     def build(
         cls,
@@ -23,7 +22,6 @@ class AppContainerFactory:
             SettingsProvider(),
             FastAPIServiceProvider(),
             UvicornServerProvider(),
-
             # System
             FastapiProvider(),
         ]

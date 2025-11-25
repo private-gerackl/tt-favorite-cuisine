@@ -5,7 +5,6 @@ from app.meta.utils.di.factories.fastapi_factory import FastAPIFactory
 
 
 class FastAPIServiceProvider(Provider):
-
     @provide(scope=Scope.APP)
     def get_fastapi_factory(
         self,
