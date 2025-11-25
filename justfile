@@ -2,6 +2,7 @@ set windows-shell := ["pwsh.exe", "-c"]
 set dotenv-filename := ".env"
 
 APP_DIR := "app"
+DOCKER_DIR := ".docker"
 
 # Sum of code checks in one command
 [group('ci')]
@@ -39,3 +40,11 @@ bandit:
 [group('linting')]
 safety:
     safety --disable-optional-telemetry check --full-report --file uv.lock --ignore 70612
+
+up environment="local":
+    docker compose \
+        -f {{ DOCKER_DIR }}/{{ environment }}/docker-compose.yml \
+        --env-file {{ DOCKER_DIR }}/{{ environment }}/docker.compose.variables.env \
+        up \
+        --build \
+        --remove-orphans
