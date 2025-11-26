@@ -13,5 +13,5 @@ class EnvSettings(
 ):
     app_version: str = "0.0.0"
     uvicorn_workers_count: PositiveInt = 1
-    uvicorn_host: IPvAnyAddress = "0.0.0.0"
+    uvicorn_host: IPvAnyAddress = "0.0.0.0"  # type: ignore[assignment]
     uvicorn_port: PositiveInt = 80
