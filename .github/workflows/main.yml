@@ -23,6 +23,7 @@ jobs:
 
     - name: Push python to cache directory
       run:
+        rm .venv/bin/python
         cp /home/runner/.local/share/uv/python/cpython-3.13.9-linux-x86_64-gnu/bin/python3.13 .venv/bin/python
 
     - name: Install Just
