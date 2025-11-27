@@ -18,6 +18,13 @@ jobs:
     - name: Set up Python 3.13
       run: uv python install 3.13
 
+    - name: Install dependencies
+      run: uv sync --group test --group linters
+
+    - name: Install Just
+      run: |
+        curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to .venv/bin/
+
     - name: Cache dependencies
       uses: actions/cache@v4
       with:
@@ -25,9 +32,6 @@ jobs:
           ~/.cache/uv
           .venv
         key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}
-
-    - name: Install dependencies
-      run: uv sync --group test --group linters
 
   checks:
     runs-on: ubuntu-latest
@@ -42,13 +46,6 @@ jobs:
 
     - name: Install uv
       uses: astral-sh/setup-uv@v3
-
-    - name: Install Just
-      run: |
-        curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin/
-
-    - name: Set up Python 3.13
-      run: uv python install 3.13
 
     - name: Restore cached dependencies
       uses: actions/cache@v4
