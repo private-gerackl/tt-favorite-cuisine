@@ -38,7 +38,6 @@ jobs:
       uses: actions/cache@v4
       with:
         path: |
-          ~/.cache/uv
           .venv
         key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}
 
@@ -53,9 +52,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install uv
-      uses: astral-sh/setup-uv@v3
-
     - name: Restore cached dependencies
       uses: actions/cache@v4
       with:
@@ -65,4 +61,4 @@ jobs:
         key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}
 
     - name: Run just target
-      run: uv run just ${{ matrix.target }}
+      run: .venv/bin/activate just ${{ matrix.target }}
