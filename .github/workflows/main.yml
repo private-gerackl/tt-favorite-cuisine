@@ -25,6 +25,10 @@ jobs:
       run: |
         curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to .venv/bin/
 
+    - name: Test check uv cache
+      run: |
+        ls -la .venv/bin
+
     - name: Cache dependencies
       uses: actions/cache@v4
       with:
@@ -54,10 +58,6 @@ jobs:
           ~/.cache/uv
           .venv
         key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}
-
-    - name: Test check uv cache
-      run: |
-        ls -la ~/.cache/uv/cpython/
 
     - name: Run just target
       run: uv run just ${{ matrix.target }}
