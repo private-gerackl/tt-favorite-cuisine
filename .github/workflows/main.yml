@@ -33,7 +33,9 @@ jobs:
     - name: Cache dependencies
       uses: actions/cache@v4
       with:
-        path: .venv
+        path:  |
+          ~/.cache/uv
+          .venv
         key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}
 
   checks:
@@ -50,7 +52,9 @@ jobs:
     - name: Restore cached dependencies
       uses: actions/cache@v4
       with:
-        path: .venv
+        path:  |
+          ~/.cache/uv
+          .venv
         key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}
 
     - name: Run just target
