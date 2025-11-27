@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  setup-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
+
+    - name: Set up Python 3.13
+      run: uv python install 3.13
+
+    - name: Cache dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/uv
+          .venv
+        key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}
+
+    - name: Install dependencies
+      run: uv sync --all-extras --dev
+
+  checks:
+    runs-on: ubuntu-latest
+    needs: setup-dependencies
+    strategy:
+      matrix:
+        target: [lint, type-check, test, security-scan]
+
+    name: "${{ matrix.target }}"
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
+
+    - name: Set up Python 3.13
+      run: uv python install 3.13
+
+    - name: Restore cached dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/uv
+          .venv
+        key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}
+
+    - name: Run just target
+      run: just ${{ matrix.target }}
