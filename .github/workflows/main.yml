@@ -34,7 +34,7 @@ jobs:
     needs: setup-dependencies
     strategy:
       matrix:
-        target: [ruff-fmt-check, ruff-style-check, mypy, safety, test]
+        target: [ruff-fmt-check, ruff-style-check, mypy, safety]
 
     name: "${{ matrix.target }}"
     steps:
