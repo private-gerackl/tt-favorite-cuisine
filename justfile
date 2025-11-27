@@ -60,4 +60,6 @@ up environment="local":
         --env-file {{ DOCKER_DIR }}/{{ environment }}/docker.compose.variables.env \
         up \
         --build \
-        --remove-orphans
+        --remove-orphans \
+        --abort-on-container-exit \
+        app postgres
