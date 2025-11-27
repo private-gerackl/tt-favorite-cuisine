@@ -45,7 +45,7 @@ jobs:
 
     - name: Install Just
       run: |
-        apt-get update && apt-get install -y --no-install-recommends just
+        curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin/
 
     - name: Set up Python 3.13
       run: uv python install 3.13
