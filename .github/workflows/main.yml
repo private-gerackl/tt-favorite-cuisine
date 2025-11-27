@@ -23,22 +23,17 @@ jobs:
 
     - name: Push python to cache directory
       run:
-        rm .venv/bin/python .venv/bin/python3 .venv/bin/python3.13 &&
+        rm .venv/bin/python &&
         cp /home/runner/.local/share/uv/python/cpython-3.13.9-linux-x86_64-gnu/bin/python3.13 .venv/bin/python
 
     - name: Install Just
       run: |
         curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to .venv/bin/
 
-    - name: Test check uv cache
-      run: |
-        ls -la .venv/bin
-
     - name: Cache dependencies
       uses: actions/cache@v4
       with:
-        path: |
-          .venv
+        path: .venv
         key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}
 
   checks:
@@ -55,8 +50,7 @@ jobs:
     - name: Restore cached dependencies
       uses: actions/cache@v4
       with:
-        path: |
-          .venv
+        path: .venv
         key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}
 
     - name: Run just target
