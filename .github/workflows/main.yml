@@ -55,5 +55,9 @@ jobs:
           .venv
         key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}
 
+    - name: Test check uv cache
+      run: |
+        ls -la ~/.cache/uv/cpython/
+
     - name: Run just target
       run: uv run just ${{ matrix.target }}
