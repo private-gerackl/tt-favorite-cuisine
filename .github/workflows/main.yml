@@ -30,7 +30,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: .bin
-        key: just-${{ hashFiles('.github/workflows/main.yml', 'just') }}
+        key: just-${{ hashFiles('just') }}
 
   checks:
     runs-on: ubuntu-latest
@@ -48,15 +48,16 @@ jobs:
       with:
         python-version: 3.13
         enable-cache: true
+        cache-python: true
 
     - name: Restore cached dependencies
       run: uv sync --group test --group linters
 
-    - name: Restore cached dependencies
+    - name: Restore cached just
       uses: actions/cache@v4
       with:
         path: .bin
-        key: just-${{ hashFiles('.github/workflows/main.yml', 'just') }}
+        key: just-${{ hashFiles('just') }}
 
     - name: Run just target
       run: uv run .bin/just ${{ matrix.target }}
