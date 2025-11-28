@@ -2,6 +2,6 @@
 
 TTFC-2 Добавить self-check роут
 
-TTFC-3 Добавить CI/CD
+~~TTFC-3 Добавить CI/CD~~
 
 TTFC-4 Добавить .dockerignore
