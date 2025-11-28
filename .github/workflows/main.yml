@@ -57,5 +57,8 @@ jobs:
           .venv
         key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}
 
+    - name: Activate venv
+      run: source .venv/bin/activate
+
     - name: Run just target
-      run: source .venv/bin/activate && just ${{ matrix.target }}
+      run: just ${{ matrix.target }}
