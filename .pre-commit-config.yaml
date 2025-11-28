@@ -30,3 +30,9 @@ repos:
         entry: just safety
         pass_filenames: false
         stages: [pre-commit, pre-push]
+      - id: test
+        name: test
+        language: system
+        entry: just up test
+        pass_filenames: false
+        stages: [pre-push]
