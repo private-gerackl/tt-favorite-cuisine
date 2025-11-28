@@ -48,7 +48,6 @@ jobs:
       with:
         python-version: 3.13
         enable-cache: true
-        cache-dependency-glob: "**/uv.lock"
 
     - name: Restore cached dependencies
       run: uv sync --group test --group linters
@@ -61,3 +60,7 @@ jobs:
 
     - name: Run just target
       run: uv run .bin/just ${{ matrix.target }}
+
+    - name: Logs of migrations
+      if: failure()
+      run: docker logs -f tt-favorite-cuisine-test-migrate-postgres-1
