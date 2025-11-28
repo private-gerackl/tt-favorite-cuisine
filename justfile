@@ -16,14 +16,14 @@ fmt: ruff-fmt ruff-style
 # Code formatting
 [group('formatting')]
 ruff-fmt:
-    uv run ruff format {{ APP_DIR }}
-    uv run ruff format {{ TESTS_DIR }}
+    ruff format {{ APP_DIR }}
+    ruff format {{ TESTS_DIR }}
 
 # Code style
 [group('formatting')]
 ruff-style:
-    uv run ruff check --fix --unsafe-fixes {{ APP_DIR }}
-    uv run ruff check --fix --unsafe-fixes {{ TESTS_DIR }}
+    ruff check --fix --unsafe-fixes {{ APP_DIR }}
+    ruff check --fix --unsafe-fixes {{ TESTS_DIR }}
 
 # Sum of lint checks in one command
 [group('linting')]
@@ -32,25 +32,25 @@ lint: ruff-fmt-check mypy safety
 # Check code format by ruff
 [group('linting')]
 ruff-fmt-check:
-    uv run ruff format --check {{ APP_DIR }}
-    uv run ruff format --check {{ TESTS_DIR }}
+    ruff format --check {{ APP_DIR }}
+    ruff format --check {{ TESTS_DIR }}
 
 # Check code style by ruff
 [group('linting')]
 ruff-style-check:
-    uv run ruff check {{ APP_DIR }}
-    uv run ruff check {{ TESTS_DIR }}
+    ruff check {{ APP_DIR }}
+    ruff check {{ TESTS_DIR }}
 
 # Check type hints correctness by mypy
 [group('linting')]
 mypy:
-    uv run mypy {{ APP_DIR }}
-    uv run mypy {{ TESTS_DIR }}
+    mypy {{ APP_DIR }}
+    mypy {{ TESTS_DIR }}
 
 # Check dependencies vulnerability by safety
 [group('linting')]
 safety:
-    uv run safety --disable-optional-telemetry check --full-report --file uv.lock --ignore 70612
+    safety --disable-optional-telemetry check --full-report --file uv.lock --ignore 70612
 
 # Up
 [group('runtime')]
