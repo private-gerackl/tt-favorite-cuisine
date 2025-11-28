@@ -24,7 +24,7 @@ jobs:
 
     - name: Install Just
       run: |
-        curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to .bin
+        curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to .bin/
 
     - name: Cache dependencies
       uses: actions/cache@v4
@@ -57,4 +57,4 @@ jobs:
         key: just-${{ hashFiles('.github/workflows/main.yml', 'just') }}
 
     - name: Run just target
-      run: uv run just ${{ matrix.target }}
+      run: uv run .bin/just ${{ matrix.target }}
