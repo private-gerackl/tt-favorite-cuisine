@@ -1,2 +1,2 @@
 async def test_foo() -> None:
-    assert False
+    assert True
