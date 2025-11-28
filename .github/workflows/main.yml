@@ -36,7 +36,11 @@ jobs:
         path:  |
           ~/.cache/uv
           .venv
-        key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}
+        key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}-v2
+
+    - name: Check .venv
+      run: |
+        ls -la .venv/bin
 
   checks:
     runs-on: ubuntu-latest
@@ -55,7 +59,7 @@ jobs:
         path:  |
           ~/.cache/uv
           .venv
-        key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}
+        key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}-v2
 
     - name: Activate venv
       run: source .venv/bin/activate
