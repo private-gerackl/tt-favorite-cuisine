@@ -69,4 +69,4 @@ jobs:
         ls -la .venv/bin
 
     - name: Run just target
-      run: .venv/bin/just ${{ matrix.target }}
+      run: just ${{ matrix.target }}
