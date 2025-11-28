@@ -36,7 +36,7 @@ jobs:
         path:  |
           ~/.cache/uv
           .venv
-        key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}-v2
+        key: uv-deps-${{ hashFiles('.github/workflows/main.yml', 'pyproject.toml', 'uv.lock') }}
 
     - name: Check .venv
       run: |
@@ -59,7 +59,7 @@ jobs:
         path:  |
           ~/.cache/uv
           .venv
-        key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}-v2
+        key: uv-deps-${{ hashFiles('.github/workflows/main.yml', 'pyproject.toml', 'uv.lock') }}-v2
 
     - name: Activate venv
       run: source .venv/bin/activate
