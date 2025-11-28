@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  setup-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v7
+      with:
+        python-version: 3.13
+        enable-cache: true
+        cache-python: true
+
+    - name: Install dependencies
+      run: uv sync --group test --group linters
+
+    - name: Install Just
+      run: |
+        curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to .bin/
+
+    - name: Cache dependencies
+      uses: actions/cache@v4
+      with:
+        path: .bin
+        key: just-${{ hashFiles('just') }}
+
+  checks:
+    runs-on: ubuntu-latest
+    needs: setup-dependencies
+    strategy:
+      matrix:
+        target: [ruff-fmt-check, ruff-style-check, mypy, safety, up test]
+
+    name: "${{ matrix.target }}"
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v7
+      with:
+        python-version: 3.13
+        enable-cache: true
+        cache-python: true
+
+    - name: Restore cached dependencies
+      run: uv sync --group test --group linters
+
+    - name: Restore cached just
+      uses: actions/cache@v4
+      with:
+        path: .bin
+        key: just-${{ hashFiles('just') }}
+
+    - name: Run just target
+      run: uv run .bin/just ${{ matrix.target }}
+
+    - name: Logs of migrations
+      if: failure()
+      run: docker logs -f tt-favorite-cuisine-test-migrate-postgres-1

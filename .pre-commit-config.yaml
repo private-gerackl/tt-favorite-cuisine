@@ -11,18 +11,28 @@ repos:
         language: system
         entry: just ruff-fmt
         pass_filenames: false
+        stages: [pre-commit, pre-push]
       - id: ruff-style
         name: ruff-style
         language: system
         entry: just ruff-style
         pass_filenames: false
+        stages: [pre-commit, pre-push]
       - id: mypy
         name: mypy
         language: system
         entry: just mypy
         pass_filenames: false
+        stages: [pre-commit, pre-push]
       - id: safety
         name: safety
         language: system
         entry: just safety
         pass_filenames: false
+        stages: [pre-commit, pre-push]
+      - id: test
+        name: test
+        language: system
+        entry: just up test
+        pass_filenames: false
+        stages: [pre-push]
