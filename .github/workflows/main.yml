@@ -43,7 +43,7 @@ jobs:
     needs: setup-dependencies
     strategy:
       matrix:
-        target: [ruff-fmt-check, ruff-style-check, mypy, safety]
+        target: [ruff-fmt-check, ruff-style-check, mypy, safety, up test]
 
     name: "${{ matrix.target }}"
     steps:
@@ -58,22 +58,4 @@ jobs:
         key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}
 
     - name: Run just target
-      run: source .venv/bin/activate just ${{ matrix.target }}
-
-  test:
-    runs-on: ubuntu-latest
-    needs: setup-dependencies
-    name: test
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Restore cached dependencies
-      uses: actions/cache@v4
-      with:
-        path:  |
-          ~/.cache/uv
-          .venv
-        key: uv-deps-${{ hashFiles('pyproject.toml', 'uv.lock') }}
-
-    - name: Run just target
-      run: source .venv/bin/activate just up test
+      run: source .venv/bin/activate && just ${{ matrix.target }}
