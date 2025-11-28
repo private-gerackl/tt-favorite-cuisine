@@ -61,4 +61,4 @@ jobs:
       run: source .venv/bin/activate
 
     - name: Run just target
-      run: just ${{ matrix.target }}
+      run: .venv/bin/just ${{ matrix.target }}
